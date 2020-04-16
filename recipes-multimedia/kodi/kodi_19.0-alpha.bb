@@ -8,9 +8,11 @@ HOMEPAGE = "https://kodi.tv/"
 BUGTRACKER = "https://github.com/xbmc/xbmc/issues"
 
 require ${BPN}.inc
-inherit cmake gettext python-dir pythonnative
+inherit cmake gettext python3-dir python3native
 
 OECMAKE_FIND_ROOT_PATH_MODE_PROGRAM = "BOTH"
+
+KODIREV = "75b31098a8800da653b373cd99a025b483029cfc"
 
 DEPENDS += " \
   curl-native \
@@ -63,7 +65,6 @@ DEPENDS += " \
   libxslt \
   lzo \
   mpeg2dec \
-  python \
   rapidjson \
   samba \
   sqlite3 \
@@ -186,23 +187,21 @@ FILES_${PN}-dbg += "${libdir}/kodi/.debug ${libdir}/kodi/*/.debug ${libdir}/kodi
 # kodi uses some kind of dlopen() method for libcec so we need to add it manually
 # OpenGL builds need glxinfo, that's in mesa-demos
 RRECOMMENDS_${PN}_append = " \
+  ${@bb.utils.contains('PACKAGECONFIG', 'x11', 'xdyinfo xrandr xinit mesa-demos', '', d)} \
   libcec \
   libcurl \
   libnfs \
-  ${@bb.utils.contains('PACKAGECONFIG', 'x11', 'xdyinfo xrandr xinit mesa-demos', '', d)} \
-  python \
-  python-ctypes \
-  python-lang \
-  python-re \
-  python-netclient \
-  python-html \
-  python-difflib \
-  python-json \
-  python-zlib \
-  python-shell \
-  python-sqlite3 \
-  python-compression \
-  python-xmlrpc \
+  python3 \
+  python3-compression \
+  python3-ctypes \
+  python3-difflib \
+  python3-html \
+  python3-json \
+  python3-netclient \
+  python3-regex \
+  python3-shell \
+  python3-sqlite3 \
+  python3-xmlrpc \
   tzdata-africa \
   tzdata-americas \
   tzdata-antarctica \
