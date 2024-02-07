@@ -10,3 +10,11 @@ SRCREV = "40348f45d6beb8a8f50b6b63414a98fc1a061b7d"
 S = "${WORKDIR}/git"
 
 inherit cmake
+
+
+do_install:append() {
+	rm -f ${D}${libdir}/cmake/libnfs/libnfs-config.cmake
+}
+
+# Workaround for clang
+CFLAGS += "-Wno-implicit-function-declaration"
